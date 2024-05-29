@@ -1,25 +1,19 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from keyboards import get_keyboard_1, get_keyboard_2
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from keyboards import  get_keyboard_1
 
 bot = Bot(token= TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
-keyboard_inline = InlineKeyboardMarkup(row_width= 1)
-but_inline = InlineKeyboardButton('Посмотреть', url= 'https://cattish.ru/breed/')
-but_inline2 = InlineKeyboardButton('Посмотреть', url= 'https://lapkins.ru/dog/')
-
 
 @dp.message_handler(commands= 'start')
 async def start(message: types.Message):
-    await message.reply('Привет', reply_markup= get_keyboard_1())
+    await message.answer('Привет', reply_markup= get_keyboard_1())
 
 
 @dp.message_handler(lambda message: message.text == 'отправь фото кота')
 async def button_1_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://vetson.ru/upload/iblock/1bd/c73x437pcxc6afyjij70rduo6rw7g0rh.png', caption= 'Вот тебе кот!' )
+    await bot.send_photo(message.chat.id, photo= 'https://vetson.ru/upload/iblock/1bd/c73x437pcxc6afyjij70rduo6rw7g0rh.png', caption= 'Вот тебе кот!', reply_markup= get_keyboard_inline())
 
 @dp.message_handler(lambda message: message.text == 'перейти на следующую клавиатуру')
 async def button_2_click(message: types.Message):
@@ -27,7 +21,7 @@ async def button_2_click(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'отправь фото собаки')
 async def button_3_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://e7.pngegg.com/pngimages/472/36/png-clipart-puppy-pet-dog-lazy-dog.png', caption= 'Вот тебе собака!' )
+    await bot.send_photo(message.chat.id, photo= 'https://e7.pngegg.com/pngimages/472/36/png-clipart-puppy-pet-dog-lazy-dog.png', caption= 'Вот тебе собака!')
 
 @dp.message_handler(lambda message: message.text == 'вернуться на 1 клавиатуру')
 async def button_2_click(message: types.Message):
