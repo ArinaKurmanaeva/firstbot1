@@ -1,13 +1,17 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
-from keyboards import  get_keyboard_1
+from keyboards import get_keyboard_1
+from database.database import initialize_db, add_user, get_user
 
 bot = Bot(token= TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
+initialize_db()
+g
 
 @dp.message_handler(commands= 'start')
 async def start(message: types.Message):
+    user = get_user(message.from_user.id)
     await message.answer('Привет', reply_markup= get_keyboard_1())
 
 
